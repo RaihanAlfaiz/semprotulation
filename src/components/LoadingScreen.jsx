@@ -36,7 +36,8 @@ export default function LoadingScreen() {
               duration: 0.6,
               ease: 'easeOut',
             }}
-            className="inline-block mr-[0.35em]"
+            className="inline-block"
+            style={{ marginRight: '0.35em' }}
           >
             {word}
           </motion.span>

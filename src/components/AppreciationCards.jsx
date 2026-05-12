@@ -1,15 +1,16 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const friends = [
   {
-    name: 'Amanda',
-    initial: 'A',
-    vibe: 'The Quiet Strength',
-    color: 'rgba(255, 200, 200, 0.12)',
-    glowColor: 'rgba(255, 200, 200, 0.08)',
-    accentColor: '#FFD1D1',
-    shortDesc: 'Soft, comforting, supportive energy — the one who keeps everyone grounded.',
+    name: "Amanda",
+    initial: "A",
+    vibe: "The Quiet Strength",
+    color: "rgba(255, 200, 200, 0.12)",
+    glowColor: "rgba(255, 200, 200, 0.08)",
+    accentColor: "#FFD1D1",
+    shortDesc:
+      "Soft, comforting, supportive energy — the one who keeps everyone grounded.",
     letter: `Amanda,
 
 Kamu mungkin gak sadar, tapi kehadiranmu itu punya efek yang besar buat kita semua. Kamu tipe orang yang gak perlu ngomong banyak buat bikin orang lain merasa aman.
@@ -21,13 +22,14 @@ Makasih udah jadi tempat yang nyaman, Man. Makasih udah selalu ada tanpa diminta
 Bangga sama lo, selalu.`,
   },
   {
-    name: 'Febiana',
-    initial: 'F',
-    vibe: 'The Bright Light',
-    color: 'rgba(255, 230, 180, 0.12)',
-    glowColor: 'rgba(255, 230, 180, 0.08)',
-    accentColor: '#FFE4B5',
-    shortDesc: 'Bright, cheerful, mentally strong — the sunshine that refuses to dim.',
+    name: "Febiana",
+    initial: "F",
+    vibe: "The Bright Light",
+    color: "rgba(255, 230, 180, 0.12)",
+    glowColor: "rgba(255, 230, 180, 0.08)",
+    accentColor: "#FFE4B5",
+    shortDesc:
+      "Bright, cheerful, mentally strong — the sunshine that refuses to dim.",
     letter: `Febiana,
 
 Lo tuh tipe orang yang bisa bikin ruangan jadi lebih hidup cuma dengan datang. Cheerful, bright, dan selalu punya energi yang bikin orang lain ikut semangat.
@@ -39,13 +41,14 @@ Mental lo itu kuat banget, Feb. Dan mungkin lo jarang denger ini, tapi gue penge
 Makasih udah jadi cahaya buat kita semua.`,
   },
   {
-    name: 'Naila',
-    initial: 'N',
-    vibe: 'The Warm Heart',
-    color: 'rgba(200, 220, 255, 0.12)',
-    glowColor: 'rgba(200, 220, 255, 0.08)',
-    accentColor: '#C8DCFF',
-    shortDesc: 'Calm, kind-hearted, emotionally warm — the one who feels everything deeply.',
+    name: "Naila",
+    initial: "N",
+    vibe: "The Warm Heart",
+    color: "rgba(200, 220, 255, 0.12)",
+    glowColor: "rgba(200, 220, 255, 0.08)",
+    accentColor: "#C8DCFF",
+    shortDesc:
+      "Calm, kind-hearted, emotionally warm — the one who feels everything deeply.",
     letter: `Naila,
 
 Kamu itu tipe orang yang perasaannya dalam banget. Yang kalau peduli, beneran peduli. Yang kalau perhatian, bukan cuma basa-basi.
@@ -57,13 +60,14 @@ Kamu yang sering dengerin tanpa judge. Kamu yang selalu punya kata-kata yang pas
 Makasih udah jadi hati yang hangat di tengah perjalanan yang kadang dingin ini, Nail. Dunia butuh lebih banyak orang kayak kamu.`,
   },
   {
-    name: 'Faisal',
-    initial: 'F',
-    vibe: 'The Steady One',
-    color: 'rgba(200, 235, 200, 0.12)',
-    glowColor: 'rgba(200, 235, 200, 0.08)',
-    accentColor: '#C8EBC8',
-    shortDesc: 'Relaxed but hardworking — calm on the surface, grinding underneath.',
+    name: "Faisal",
+    initial: "F",
+    vibe: "The Steady One",
+    color: "rgba(200, 235, 200, 0.12)",
+    glowColor: "rgba(200, 235, 200, 0.08)",
+    accentColor: "#C8EBC8",
+    shortDesc:
+      "Relaxed but hardworking — calm on the surface, grinding underneath.",
     letter: `Faisal,
 
 Lo tuh tipe yang dari luar keliatan santai, adem, kayak gak ada beban. Tapi di balik itu, lo kerja keras diam-diam. Lo push diri lo sendiri tanpa perlu pamer.
@@ -75,13 +79,14 @@ Mungkin lo sering ngerasa underappreciated karena lo jarang minta pengakuan. Tap
 Proud of you, Sal. Serius.`,
   },
   {
-    name: 'Hilman',
-    initial: 'H',
-    vibe: 'The Chaotic Good',
-    color: 'rgba(230, 210, 255, 0.12)',
-    glowColor: 'rgba(230, 210, 255, 0.08)',
-    accentColor: '#E6D2FF',
-    shortDesc: 'Funny, chaotic, but always present — the one who makes hard times lighter.',
+    name: "Hilman",
+    initial: "H",
+    vibe: "The Chaotic Good",
+    color: "rgba(230, 210, 255, 0.12)",
+    glowColor: "rgba(230, 210, 255, 0.08)",
+    accentColor: "#E6D2FF",
+    shortDesc:
+      "Funny, chaotic, but always present — the one who makes hard times lighter.",
     letter: `Hilman,
 
 Lo itu chaos yang kita semua butuhkan. Yang bikin momen-momen berat jadi bisa ketawa. Yang bikin deadline yang menyiksa jadi punya cerita lucu untuk diceritain nanti.
@@ -92,17 +97,21 @@ Lo lebih dari yang lo kira, Man. Lo bukan cuma "yang lucu." Lo orang yang bikin 
 
 Makasih udah jadi keributan terindah di perjalanan ini.`,
   },
-]
+];
 
 function PersonCard({ person, index, onClick }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-40px' })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
       ref={ref}
-      className="glass-card p-5 md:p-7 cursor-pointer relative overflow-hidden group"
-      style={{ background: person.color }}
+      className="glass-card cursor-pointer relative overflow-hidden group flex flex-col h-full rounded-[1.75rem] border border-white/10 shadow-2xl backdrop-blur-md"
+      style={{
+        background: person.color,
+        padding: "clamp(2rem, 4vw, 2.5rem)",
+        minHeight: "360px",
+      }}
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{
@@ -119,7 +128,7 @@ function PersonCard({ person, index, onClick }) {
         className="absolute -top-16 -right-16 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
         style={{
           background: `radial-gradient(circle, ${person.glowColor}, transparent 70%)`,
-          filter: 'blur(20px)',
+          filter: "blur(20px)",
         }}
       />
 
@@ -133,7 +142,10 @@ function PersonCard({ person, index, onClick }) {
       >
         <span
           className="text-lg md:text-xl font-bold"
-          style={{ fontFamily: 'var(--font-playfair)', color: person.accentColor }}
+          style={{
+            fontFamily: "var(--font-playfair)",
+            color: person.accentColor,
+          }}
         >
           {person.initial}
         </span>
@@ -142,7 +154,10 @@ function PersonCard({ person, index, onClick }) {
       {/* Name */}
       <h3
         className="text-xl md:text-2xl lg:text-3xl mb-1"
-        style={{ fontFamily: 'var(--font-playfair)', color: 'var(--color-cream-50)' }}
+        style={{
+          fontFamily: "var(--font-playfair)",
+          color: "var(--color-cream-50)",
+        }}
       >
         {person.name}
       </h3>
@@ -150,7 +165,7 @@ function PersonCard({ person, index, onClick }) {
       {/* Vibe */}
       <p
         className="text-[0.6rem] md:text-xs tracking-[0.15em] uppercase mb-3 md:mb-4"
-        style={{ color: person.accentColor, fontFamily: 'var(--font-poppins)' }}
+        style={{ color: person.accentColor, fontFamily: "var(--font-poppins)" }}
       >
         {person.vibe}
       </p>
@@ -159,8 +174,8 @@ function PersonCard({ person, index, onClick }) {
       <p
         className="text-[0.8rem] md:text-sm leading-relaxed mb-3 md:mb-4"
         style={{
-          fontFamily: 'var(--font-poppins)',
-          color: 'var(--color-text-secondary)',
+          fontFamily: "var(--font-poppins)",
+          color: "var(--color-text-secondary)",
           fontWeight: 300,
           lineHeight: 1.7,
         }}
@@ -169,10 +184,13 @@ function PersonCard({ person, index, onClick }) {
       </p>
 
       {/* Read letter indicator */}
-      <div className="flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+      <div className="mt-auto pt-6 flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
         <span
           className="text-[0.7rem] md:text-xs tracking-[0.1em]"
-          style={{ color: person.accentColor, fontFamily: 'var(--font-poppins)' }}
+          style={{
+            color: person.accentColor,
+            fontFamily: "var(--font-poppins)",
+          }}
         >
           Read letter
         </span>
@@ -180,27 +198,27 @@ function PersonCard({ person, index, onClick }) {
           style={{ color: person.accentColor }}
           className="text-sm"
           animate={{ x: [0, 4, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
           →
         </motion.span>
       </div>
     </motion.div>
-  )
+  );
 }
 
 function LetterModal({ person, onClose }) {
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = "hidden";
     const handleEsc = (e) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', handleEsc)
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
     return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', handleEsc)
-    }
-  }, [onClose])
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [onClose]);
 
   return (
     <motion.div
@@ -224,17 +242,17 @@ function LetterModal({ person, onClose }) {
           onClick={onClose}
           className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-colors duration-300"
           style={{
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: 'var(--color-text-muted)',
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            color: "var(--color-text-muted)",
           }}
           onMouseEnter={(e) => {
-            e.target.style.borderColor = 'rgba(255,216,155,0.3)'
-            e.target.style.color = 'var(--color-glow-warm)'
+            e.target.style.borderColor = "rgba(255,216,155,0.3)";
+            e.target.style.color = "var(--color-glow-warm)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.color = 'var(--color-text-muted)'
+            e.target.style.borderColor = "rgba(255,255,255,0.1)";
+            e.target.style.color = "var(--color-text-muted)";
           }}
         >
           ✕
@@ -251,7 +269,10 @@ function LetterModal({ person, onClose }) {
           >
             <span
               className="text-base md:text-lg font-bold"
-              style={{ fontFamily: 'var(--font-playfair)', color: person.accentColor }}
+              style={{
+                fontFamily: "var(--font-playfair)",
+                color: person.accentColor,
+              }}
             >
               {person.initial}
             </span>
@@ -259,26 +280,35 @@ function LetterModal({ person, onClose }) {
 
           <h3
             className="text-xl md:text-2xl lg:text-3xl mb-1"
-            style={{ fontFamily: 'var(--font-playfair)', color: 'var(--color-cream-50)' }}
+            style={{
+              fontFamily: "var(--font-playfair)",
+              color: "var(--color-cream-50)",
+            }}
           >
             For {person.name}
           </h3>
           <p
             className="text-[0.6rem] md:text-xs tracking-[0.15em] uppercase"
-            style={{ color: person.accentColor, fontFamily: 'var(--font-poppins)' }}
+            style={{
+              color: person.accentColor,
+              fontFamily: "var(--font-poppins)",
+            }}
           >
             {person.vibe}
           </p>
         </div>
 
-        <div className="section-divider mb-5 md:mb-6" style={{ margin: '0 0 1.25rem 0' }} />
+        <div
+          className="section-divider mb-5 md:mb-6"
+          style={{ margin: "0 0 1.25rem 0" }}
+        />
 
         {/* Letter content */}
         <div
           className="text-[0.8rem] md:text-[0.9rem] lg:text-base leading-relaxed whitespace-pre-line"
           style={{
-            fontFamily: 'var(--font-poppins)',
-            color: 'var(--color-text-secondary)',
+            fontFamily: "var(--font-poppins)",
+            color: "var(--color-text-secondary)",
             fontWeight: 300,
             lineHeight: 1.85,
           }}
@@ -287,82 +317,94 @@ function LetterModal({ person, onClose }) {
         </div>
 
         {/* Signature */}
-        <div className="mt-6 md:mt-8 pt-5 md:pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div
+          className="mt-6 md:mt-8 pt-5 md:pt-6"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
           <p
             className="text-sm italic"
-            style={{ fontFamily: 'var(--font-playfair)', color: 'var(--color-text-muted)' }}
+            style={{
+              fontFamily: "var(--font-playfair)",
+              color: "var(--color-text-muted)",
+            }}
           >
             with love and pride ✦
           </p>
         </div>
       </motion.div>
     </motion.div>
-  )
+  );
 }
 
 export default function AppreciationCards() {
-  const [selectedPerson, setSelectedPerson] = useState(null)
-  const headerRef = useRef(null)
-  const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
+  const [selectedPerson, setSelectedPerson] = useState(null);
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
     <section
       id="appreciation"
       style={{
-        position: 'relative',
-        paddingTop: 'clamp(80px, 8vw, 128px)',
-        paddingBottom: 'clamp(80px, 8vw, 128px)',
-        paddingLeft: 'clamp(24px, 5vw, 64px)',
-        paddingRight: 'clamp(24px, 5vw, 64px)',
-        overflow: 'hidden',
+        position: "relative",
+        paddingTop: "clamp(80px, 8vw, 128px)",
+        paddingBottom: "clamp(80px, 8vw, 128px)",
+        paddingLeft: "clamp(24px, 5vw, 64px)",
+        paddingRight: "clamp(24px, 5vw, 64px)",
+        overflow: "hidden",
       }}
     >
       {/* Background ambient */}
       <div
         className="ambient-glow ambient-glow-soft"
-        style={{ width: 400, height: 400, top: '20%', right: '0%', opacity: 0.06 }}
+        style={{
+          width: 400,
+          height: 400,
+          top: "20%",
+          right: "0%",
+          opacity: 0.06,
+        }}
       />
 
       {/* Section Header */}
       <motion.div
         ref={headerRef}
-        style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 80px)' }}
+        style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 80px)" }}
         initial={{ opacity: 0, y: 40 }}
         animate={headerInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1 }}
       >
         <p
           style={{
-            fontSize: 'clamp(0.6rem, 1.5vw, 0.75rem)',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            marginBottom: '12px',
-            color: 'var(--color-text-muted)',
-            fontFamily: 'var(--font-poppins)',
+            fontSize: "clamp(0.6rem, 1.5vw, 0.75rem)",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            marginBottom: "12px",
+            color: "var(--color-text-muted)",
+            fontFamily: "var(--font-poppins)",
           }}
         >
           the people
         </p>
         <h2
           style={{
-            fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-            fontStyle: 'italic',
-            fontFamily: 'var(--font-playfair)',
-            color: 'var(--color-cream-100)',
+            fontSize: "clamp(1.5rem, 4vw, 3rem)",
+            fontStyle: "italic",
+            fontFamily: "var(--font-playfair)",
+            color: "var(--color-cream-100)",
           }}
         >
           Each of You, a Universe
         </h2>
-        <div className="section-divider" style={{ marginTop: '20px' }} />
+        <div className="section-divider" style={{ marginTop: "20px" }} />
         <p
           style={{
-            fontSize: 'clamp(0.7rem, 1.5vw, 0.875rem)',
-            marginTop: '20px',
-            maxWidth: '28rem',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            fontFamily: 'var(--font-poppins)',
-            color: 'var(--color-text-muted)',
+            fontSize: "clamp(0.7rem, 1.5vw, 0.875rem)",
+            marginTop: "20px",
+            maxWidth: "28rem",
+            marginLeft: "auto",
+            marginRight: "auto",
+            fontFamily: "var(--font-poppins)",
+            color: "var(--color-text-muted)",
             fontWeight: 300,
             lineHeight: 1.8,
           }}
@@ -372,9 +414,16 @@ export default function AppreciationCards() {
       </motion.div>
 
       {/* Cards Grid — 1 col mobile, 2 col tablet, special 3+2 desktop */}
-      <div style={{ maxWidth: '56rem', margin: '0 auto' }}>
+      <div style={{ maxWidth: "75rem", margin: "0 auto" }}>
         {/* Top row: 3 cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 'clamp(16px, 2vw, 24px)' }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(320px, 100%), 1fr))",
+            gap: "clamp(2rem, 4vw, 3rem)",
+          }}
+        >
           {friends.slice(0, 3).map((person, i) => (
             <PersonCard
               key={person.name}
@@ -385,7 +434,18 @@ export default function AppreciationCards() {
           ))}
         </div>
         {/* Bottom row: 2 cards, centered */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 'clamp(16px, 2vw, 24px)', marginTop: 'clamp(16px, 2vw, 24px)', maxWidth: '42rem', marginLeft: 'auto', marginRight: 'auto' }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(320px, 100%), 1fr))",
+            gap: "clamp(2rem, 4vw, 3rem)",
+            marginTop: "clamp(2rem, 4vw, 3rem)",
+            maxWidth: "55rem",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
           {friends.slice(3).map((person, i) => (
             <PersonCard
               key={person.name}
@@ -407,5 +467,5 @@ export default function AppreciationCards() {
         )}
       </AnimatePresence>
     </section>
-  )
+  );
 }
